@@ -6,7 +6,7 @@ const divide = (a, b) => a / b;
 
 let n1;
 let n2;
-let op;
+let oper;
 
 function operate(op, a, b) {
     switch(op) {
@@ -21,7 +21,7 @@ function operate(op, a, b) {
     }
 }
 
-let displayValue = "0";
+let displayValue = "";
 const display = document.querySelector('.display');
 display.textContent = displayValue;
 
@@ -32,4 +32,28 @@ buttons.forEach(button => {
         displayValue += button.textContent;
         display.textContent = displayValue;
     })
+});
+
+const ops = document.querySelectorAll('.op');
+
+ops.forEach(op => {
+    op.addEventListener('click', () => {
+        displayValue += " " + op.textContent + " ";
+        display.textContent = displayValue;
+        oper = op.textContent;
+    });
+});
+
+const equals = document.querySelector('.equals');
+
+equals.addEventListener('click', () => {
+    let parts = displayValue.split(" ");
+    n1 = parts[0];
+    n2 = parts[2];
+    let answer = operate(oper, +(n1), +(n2));
+    displayValue = answer;
+    display.textContent = displayValue;
+    n1 = "";
+    n2 = "";
+    oper = "";
 });
