@@ -38,6 +38,14 @@ const ops = document.querySelectorAll('.op');
 
 ops.forEach(op => {
     op.addEventListener('click', () => {
+        if (hasOperator(displayValue)) {
+            let parts = displayValue.split(" ");
+            n1 = parts[0];
+            n2 = parts[2];
+            let answer = operate(oper, +(n1), +(n2));
+            displayValue = answer;
+            display.textContent = displayValue;
+        }
         displayValue += " " + op.textContent + " ";
         display.textContent = displayValue;
         oper = op.textContent;
@@ -57,3 +65,19 @@ equals.addEventListener('click', () => {
     n2 = "";
     oper = "";
 });
+
+const clear = document.querySelector('.clear');
+
+clear.addEventListener('click', () => {
+    displayValue = "";
+    display.textContent = displayValue;
+})
+
+function hasOperator(dv) {
+    for (let i = 0; i < dv.length; i++) {
+        if (dv[i] == "+" || dv[i] == "-" || dv[i] == "*" || dv[i] == "/") {
+            return true;
+        }
+    }
+    return false;
+}
